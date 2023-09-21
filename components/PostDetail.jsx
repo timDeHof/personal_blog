@@ -1,6 +1,7 @@
 import React from "react";
 import moment from "moment";
 import Link from "next/link";
+import Image from "next/image";
 const PostDetail = ({ post }) => {
   const getContentFragment = (index, text, type, obj) => {
     let modifiedText = text;
@@ -21,7 +22,13 @@ const PostDetail = ({ post }) => {
         const { src, alt, height, width } = obj.image;
         modifiedText = [
           ...modifiedText,
-          <img key={index} src={src} alt={alt} height={height} width={width} />,
+          <Image
+            key={index}
+            src={src}
+            alt={alt}
+            height={height}
+            width={width}
+          />,
         ];
       }
     }
@@ -57,7 +64,7 @@ const PostDetail = ({ post }) => {
       case "image":
         if (obj?.image) {
           return (
-            <img
+            <Image
               key={index}
               alt={obj.image.title || ""}
               height={obj.image.height}
@@ -84,19 +91,20 @@ const PostDetail = ({ post }) => {
     <>
       <div className='pb-12 mb-8 bg-white rounded-lg shadow-lg lg:p-8'>
         <div className='relative mb-6 overflow-hidden shadow-md'>
-          <img
+          <Image
             src={post.featuredImage.url}
             alt=''
+            fill
             className='object-cover object-top w-full h-full rounded-t-lg shadow-lg lg:rounded-lg'
           />
         </div>
         <div className='px-4 lg:px-0'>
           <div className='flex items-center w-full mb-8'>
             <div className='items-center justify-center hidden mr-8 md:flex lg:mb-0 lg:w-auto'>
-              <img
+              <Image
                 alt={post.author.name}
-                height='30px'
-                width='30px'
+                height={30}
+                width={30}
                 className='align-middle rounded-full'
                 src={post.author.photo.url}
               />
@@ -126,13 +134,12 @@ const PostDetail = ({ post }) => {
           <h1 className='mb-8 text-3xl font-semibold text-center'>
             {post.title}
           </h1>
-          {console.log(post.content.markdown)}
           {post.content.raw.children.map((typeObj, index) => {
-            const children = typeObj.children.map((item, itemIndex) =>
+            const components = typeObj.children.map((item, itemIndex) =>
               getContentFragment(itemIndex, item.text, typeObj.type),
             );
 
-            return getContentFragment(index, children, typeObj, typeObj.type);
+            return getContentFragment(index, components, typeObj, typeObj.type);
           })}
         </div>
       </div>

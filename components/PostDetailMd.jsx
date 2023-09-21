@@ -69,19 +69,20 @@ const PostDetailMd = ({ post }) => {
     <>
       <div className='pb-12 mb-8 bg-white rounded-lg shadow-lg lg:p-8'>
         <div className='relative mb-6 overflow-hidden shadow-md'>
-          <img
+          <Image
             src={post.featuredImage.url}
             alt=''
+            fill
             className='object-cover object-top w-full h-full rounded-t-lg shadow-lg lg:rounded-lg'
           />
         </div>
         <div className='px-4 lg:px-0'>
           <div className='flex items-center w-full mb-8'>
             <div className='items-center justify-center hidden mr-8 md:flex lg:mb-0 lg:w-auto'>
-              <img
+              <Image
                 alt={post.author.name}
-                height='30px'
-                width='30px'
+                height={30}
+                width={30}
                 className='align-middle rounded-full'
                 src={post.author.photo.url}
               />
@@ -111,11 +112,9 @@ const PostDetailMd = ({ post }) => {
           <h1 className='mb-8 text-3xl font-semibold text-center'>
             {post.title}
           </h1>
-          <ReactMarkdown
-            children={markdown}
-            components={components}
-            remarkPlugins={[remarkGfm]}
-          />
+          <ReactMarkdown components={components} remarkPlugins={[remarkGfm]}>
+            {markdown}
+          </ReactMarkdown>
         </div>
       </div>
     </>

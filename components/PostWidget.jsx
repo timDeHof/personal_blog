@@ -20,7 +20,7 @@ const PostWidget = ({ categories, slug }) => {
         setLoading(false);
       });
     }
-  }, [slug]);
+  }, [slug, categories]);
 
   return (
     <div className='p-8 pb-12 mb-8 bg-white rounded-lg shadow-lg'>
